@@ -42,6 +42,9 @@ def parse_input_sampler():
 	return input_file, output_file, n_results, optional_args
 
 def write_output(output_file,container,fmt='%10.10f'):
+	"""
+	Writes results as a formatted text file.
+	"""
 	try:
 		np.savetxt(output_file,np.array(container),fmt=fmt)
 	except ValueError:

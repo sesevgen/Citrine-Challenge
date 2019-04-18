@@ -22,7 +22,6 @@ dim = test.get_ndim()
 container = []
 container.append(seed)
 
-
 # Initialize 
 n = 1
 failures = 0

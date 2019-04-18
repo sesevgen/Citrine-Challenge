@@ -40,12 +40,19 @@ def load_array(output_file,dimensions):
 	return array
 
 def plot_1d(array,dimensions):
+	"""
+	Plots a single dimensional array
+	"""
 	plt.figure()
-	plt.scatter(array)
-	plt.xlabel(str(dimensions[0])+'th Dimension')
+	plt.plot(array)
+	plt.xlabel('Points')
+	plt.ylabel(str(dimensions[0])+'th Dimension')
 	plt.show()
 
 def plot_2d(array,dimensions):
+	"""
+	Plots a two dimensional array
+	"""
 	plt.figure()
 	plt.scatter(array[:,0],array[:,1])
 	plt.xlabel(str(dimensions[0])+'th Dimension')
@@ -53,6 +60,9 @@ def plot_2d(array,dimensions):
 	plt.show()
 
 def plot_3d(array,dimensions):
+	"""
+	Plots a three dimensional array
+	"""
 	plt.figure()
 	ax = plt.axes(projection='3d')
 	ax.scatter3D(array[:,0],array[:,1],array[:,2])
