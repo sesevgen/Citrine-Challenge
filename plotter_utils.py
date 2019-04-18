@@ -41,13 +41,13 @@ def load_array(output_file,dimensions):
 
 def plot_1d(array,dimensions):
 	plt.figure()
-	plt.plot(array)
+	plt.scatter(array)
 	plt.xlabel(str(dimensions[0])+'th Dimension')
 	plt.show()
 
 def plot_2d(array,dimensions):
 	plt.figure()
-	plt.plot(array[:,0],array[:,1])
+	plt.scatter(array[:,0],array[:,1])
 	plt.xlabel(str(dimensions[0])+'th Dimension')
 	plt.ylabel(str(dimensions[1])+'th Dimension')
 	plt.show()

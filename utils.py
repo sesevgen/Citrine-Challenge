@@ -20,6 +20,8 @@ def parse_input_sampler():
 		help='Number of random walk steps to attempt per point. Higher values speed up point generation but also cause points to be more clustered. Default = 20')
 	parser.add_argument('-r','--reset',nargs='?', default = 'zero',
 		help='Options: zero or decrement - Mode to reset random walk step length. \'zero\' resets random walk step length on a success. \'decrement\' decrements failure counter by 1. \'decrement\' is significantly faster, but also generates significantly more correlated samples. Default = \'zero\' ')
+	parser.add_argument('-b','--benchmark',nargs='?', default=False,
+		help='If enabled, keeps track of the sampling portion of runtime and reports it.')
 
 
 	args = parser.parse_args()
@@ -31,7 +33,8 @@ def parse_input_sampler():
 	optional_args={ 'format': args.format,
 			'decay' : args.decay,
 			'steps': args.steps,
-			'reset': args.reset}
+			'reset': args.reset,
+			'benchmark':args.benchmark}
 
 
 	print(('Generating {} points, subject to constraints from '+input_file+', and writing the results to '+output_file+'.').format(n_results))

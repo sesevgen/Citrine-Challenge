@@ -2,6 +2,7 @@
 
 from utils import *
 from constraints import Constraint
+import time
 
 # Parse inputs and define variables
 input_file, output_file, n_samples, optional_args = parse_input_sampler()
@@ -9,6 +10,7 @@ nr_trials = optional_args['steps']
 decay = optional_args['decay']
 fmt = optional_args['format']
 reset = optional_args['reset']
+benchmark = optional_args['benchmark']
 
 
 # Initialize constraint tester, seed point, and set nr. of dimensions.
@@ -25,6 +27,10 @@ container.append(seed)
 n = 1
 failures = 0
 
+# Run benchmark if requested
+if benchmark:
+	start_time = time.perf_counter()
+
 # Run until all points are generated
 while n < n_samples:
 	# Initialize trials
@@ -34,11 +40,11 @@ while n < n_samples:
 	point_init = container[np.random.randint(n)].copy()
 	point = point_init.copy()
 
-	# First get ranges for random walk, start as coarse as possible, then decay with failures.
-	ranges = [((-x)*(decay**failures),(1-x)*(decay**failures)) for x in point]
-
 	# Try random walking with coarse range nr_trials times, shortening step size with each failure and resetting it with each success
 	for i in range(nr_trials):
+
+		# First get ranges for random walk, start as coarse as possible, then decay with failures.
+		ranges = [((-x)*(decay**failures),(1.0-x)*(decay**failures)) for x in point]
 
 		# Take a random step
 		for j in range(len(point)):
@@ -60,7 +66,7 @@ while n < n_samples:
 			if reset == 'zero':
 				failures = 0
 			elif reset == 'decrement':
-				failures = max(0,failure-1)
+				failures = max(0,failures-1)
 
 			# Set new checkpoint
 			point_init = point.copy()
@@ -72,6 +78,10 @@ while n < n_samples:
 			# Increment failures by 1
 			failures += 1
 		
+
+# Print sampling time if requested
+if benchmark:
+	print('Sampling took {} seconds'.format(time.perf_counter()-start_time))
 
 # Final check
 passed, failures = run_check(container,test)
