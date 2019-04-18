@@ -1,6 +1,30 @@
 # Citrine-Challenge
 Generating points within the unit hypercube subject to constraints.
 
+Requirements:
+* Python 3
+* Numpy
+* Matplotlib
+
+Tested with:
+* Python 3.6.7
+* Numpy 1.16.1
+* Matplotlib 3.0.2
+
+Usage:  
+./sampler <input_file> <output_file> <n_results> <optional_parameters>  
+./plotter <output_file> <dimensions_to_plot>
+
+For a list of optional parameters, please do:  
+./sampler -h 
+
+Examples:  
+./sampler alloy.txt output.txt 1000 --decay 0.95 --steps 10 --benchmark True  
+
+./plotter output.txt 0  
+./plotter output.txt 1 3  
+./plotter output.txt 3 4 6  
+
 # Method description:
 The method works by performing short random walks from points obeying constraints, automatically reducing step size with failures and increasing step size with successes.
 In steps:
@@ -29,30 +53,18 @@ Steps parameter may or may not influence speed and spread, depending on average 
 * Decreasing steps may increase runtime, but also may increase sampling quality. Changing it to 10 makes alloy.txt benchmark take 9.3 seconds.
 
 
-Systems can be benchmarked with the --benchmark True flag. A plotter tool is also included to get an idea of the quality of points spread.
-A few example plots:
+Systems can be benchmarked with the --benchmark True flag. A plotter tool is also included to get an idea of the quality of points spread. A few example plots are provided below.
+* alloy.txt with default parameters:
+![ScreenShot](alloy_default.png)
 
-Requirements:
-* Python 3
-* Numpy
-* Matplotlib
+* alloy.txt with decay=0.995:
+![ScreenShot](alloy_decay0995.png)
 
-Tested with:
-* Python 3.6.7
-* Numpy 1.16.1
-* Matplotlib 3.0.2
+* alloy.txt with steps=10:
+![ScreenShot](alloy_steps10.png)
 
-Usage:  
-./sampler <input_file> <output_file> <n_results> <optional_parameters>  
-./plotter <output_file> <dimensions_to_plot>
+* mixture.txt with default parameters:
+![ScreenShot](mixture_default.png)
 
-For a list of optional parameters, please do:  
-./sampler -h 
-
-Examples:  
-./sampler alloy.txt output.txt 1000 --decay 0.95 --steps 10 --benchmark True  
-
-./plotter output.txt 0  
-./plotter output.txt 1 3  
-./plotter output.txt 3 4 6  
-
+* formulation.txt with decay=0.999 and steps=4:
+![ScreenShot](formulation_decay0999_steps4.png)
