@@ -55,16 +55,16 @@ Steps parameter may or may not influence speed and spread, depending on average 
 
 Systems can be benchmarked with the --benchmark True flag. A plotter tool is also included to get an idea of the quality of points spread. A few example plots are provided below.
 * alloy.txt with default parameters:
-![ScreenShot](alloy_default.png)
+![ScreenShot](plots/alloy_default.png)
 
 * alloy.txt with decay=0.995:
-![ScreenShot](alloy_decay0995.png)
+![ScreenShot](plots/alloy_decay0995.png)
 
 * alloy.txt with steps=10:
-![ScreenShot](alloy_steps10.png)
+![ScreenShot](plots/alloy_steps10.png)
 
 * mixture.txt with default parameters:
-![ScreenShot](mixture_default.png)
+![ScreenShot](plots/mixture_default.png)
 
 * formulation.txt with decay=0.999 and steps=4:
-![ScreenShot](formulation_decay0999_steps4.png)
+![ScreenShot](plots/formulation_decay0999_steps4.png)
