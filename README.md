@@ -49,7 +49,7 @@ With the default parameters, generating 1000 points on a i7-6850K @ 4.4GHz takes
 The main knob adjusting speed vs sampling uniformity is the decay.  
 * Increasing decay increases runtime, but also the sampling quality. Increasing it to 0.995 makes the alloy.txt benchmark take 16 seconds, but dramatically improves point spread.
 
-Steps parameter may or may not influence speed and spread, depending on average steps per point.
+Steps parameter may or may not influence speed and spread, depending on average successful steps per point.
 * Decreasing steps may increase runtime, but also may increase sampling quality. Changing it to 10 makes alloy.txt benchmark take 9.3 seconds.
 
 
