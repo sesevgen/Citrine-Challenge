@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+
+from plotter_utils import *
+
+# Read inputs from command line
+output_file, dimensions = parse_input_plotter()
+
+# Load the outputted vectors along requested dimension
+array_to_plot = load_array(output_file, dimensions)
+
+# Determine nr. of dimensions to plot
+nr_dims = len(dimensions)
+
+# Plot requested dimensions
+if nr_dims == 1:
+	plot_1d(array_to_plot,dimensions)
+if nr_dims == 2:
+	plot_2d(array_to_plot,dimensions)
+if nr_dims == 3:
+	plot_3d(array_to_plot,dimensions)

@@ -1,0 +1,78 @@
+#!/usr/bin/python3
+
+from utils import *
+from constraints import Constraint
+
+# Parse inputs and define variables
+input_file, output_file, n_samples, optional_args = parse_input_sampler()
+nr_trials = optional_args['steps']
+decay = optional_args['decay']
+fmt = optional_args['format']
+reset = optional_args['reset']
+
+
+# Initialize constraint tester, seed point, and set nr. of dimensions.
+test = Constraint(input_file)
+seed = test.get_example()
+dim = test.get_ndim()
+
+# Create container to hold generated points, add seed point.
+container = []
+container.append(seed)
+
+
+# Initialize 
+n = 1
+failures = 0
+
+# Run until all points are generated
+while n < n_samples:
+	# Initialize trials
+	trial = 0
+
+	# Pick a random point from available points
+	point_init = container[np.random.randint(n)].copy()
+	point = point_init.copy()
+
+	# First get ranges for random walk, start as coarse as possible, then decay with failures.
+	ranges = [((-x)*(decay**failures),(1-x)*(decay**failures)) for x in point]
+
+	# Try random walking with coarse range nr_trials times, shortening step size with each failure and resetting it with each success
+	for i in range(nr_trials):
+
+		# Take a random step
+		for j in range(len(point)):
+			point[j] += np.random.uniform(ranges[j][0],ranges[j][1])
+
+		# Check if new point is within the constraints
+		if test.apply(point):
+			# If it is, add it to the list of good points
+			container.append(point.copy())
+
+			# Increment point counter
+			n += 1
+			
+			# If we now have the right number of points, we're done!
+			if n == n_samples:
+				break
+
+			# Reset failure according to provided option. Zero resets random walk step length to maximum, decrement rolls back a single decay step.
+			if reset == 'zero':
+				failures = 0
+			elif reset == 'decrement':
+				failures = max(0,failure-1)
+
+			# Set new checkpoint
+			point_init = point.copy()
+
+		else:
+			# If the new point violates constraints, try a new random walk from the previous point
+			point = point_init.copy()
+
+			# Increment failures by 1
+			failures += 1
+		
+
+# Final check
+passed, failures = run_check(container,test)
+write_output(output_file,container,fmt=fmt)
