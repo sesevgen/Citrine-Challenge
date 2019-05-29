@@ -1,4 +1,4 @@
-# Citrine-Challenge
+# Hypercube Sampling
 Generating points within the unit hypercube subject to constraints.
 
 Requirements:
